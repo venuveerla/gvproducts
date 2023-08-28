@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+            counter-reset: Serial;    
+        }
+        .mid .right
+        {
+            counter-reset: Serial;  
+        }
+        .last
+        {
+            counter-reset: Serial;  
+        }
+        tr td:first-child:before
+		{
+		  counter-increment: Serial;      
+		  content: counter(Serial); 
+		}
+    </style>
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="maintitle" style="margin-bottom: 0px;">
+        <div class="logo">
+          <img src="{% static 'media/logo.png' %}" alt="logo" style="width:180px; float:left; height:140px;">
+      </div>
+        <P class="maintitle">G.V PRODUCTS</P>
+      <div class="info">
+      <p style="margin-left:4px;">email:kumar@gmail.com</p>
+      <p style="margin-left: 20px;">contact1 :9879871234</p>
+      <p style="margin-left: 20px;">contact2 :9879871235</p>
+     </div>
+     </div>
+    <div class="container">
+        <div class="title">
+            <p style="margin-top: 8px;">Analysis</p>
+        </div>
+         <div class="top">
+            <h2 class="header">Amount wise Analysis:</h2>
+            <div class="left">
+                <p class="intitle">Total amount</p>
+                <p class="inamount" style="color:orange">{{d.totalprice}}</p>
+                 <p class="para">This is the total amount that you should receive on sales till <span>{{d.time}}</span></p>
+            </div>
+            <div class="right">
+                <p class="intitle">Amount yet to be receive</p>
+                <p class="inamount" style="color:red">{{d.balance}}</p>
+                 <p class="para">This is the balance yet to receive till <span>{{d.time}}</span></p>
+            </div>
+            <div class="middle">
+                 <p class="intitle">Amount Received</p>
+                <p class="inamount" style="color:green">{{d.amount}}</p>
+                 <p class="para">This is the  amount that you have received on sales  till <span>{{d.time}}</span></p>
+            </div>
+        </div>
+        <div class="mid" style="margin-bottom: 15px;">
+            <h2 class="header">Analysis of the products:</h2>
+            <div class="left">
+                <p class="intitle" style=" padding:6px 5px 5px 8px;">Products with High sales</p>
+               
+                    <table class="table">
+                        <tr>
+                        <th style="width:3vw">s.no</th>
+                        <th style="width:20vw">Product_name</th>
+                        <th>quantity_sold</th>
+                    </tr>
+                          {% for r in result %}
+                     <tr>
+                          <td style="width:3vw"></td>
+                          <td style="width:20vw">{{r.name}}</td>
+                          <td>{{r.total_quantity}}</td>
+                        </tr>
+                          {% endfor %} 
+                     </table>
+            </div>
+            <div class="right">
+                <p class="intitle" style=" padding:6px 5px 5px 5px;">Products with Low sales</p>
+                    <table class="table">
+                        <tr>
+                        <th style="width:3vw">s.no</th>
+                        <th style="width:20vw">Product_name</th>
+                        <th>quantity_sold</th>
+                    </tr>
+                          {% for r in result1 %}
+                     <tr>
+                          <td style="width:3vw"></td>
+                          <td style="width:20vw">{{r.name}}</td>
+                          <td>{{r.total_quantity}}</td>
+                        </tr>
+                          {% endfor %} 
+                     </table>
+            </div>
+        </div>
+       <div class="last">
+            <p class="intitle" style="margin-top: 8px;">Customers list with respect to balance</p>
+            <table class="table">
+                <tr>
+                <th style="width:3vw">s.no</th>
+                <th style="width:20vw">Farmer Name</th>
+                <th>Village</th>
+                <th>phone number(1)</th>
+                <th>phone number(2)</th>
+                <th>balance</th>
+            </tr>
+                  {% for r in result2 %}
+             <tr>
+                           <td style="width:3vw"></td>
+                          <td style="width:20vw">{{r.name}}</td>
+                          <td>{{r.village}}</td>
+                          <td>{{r.phno1}}</td>
+                          <td>{{r.phno2}}</td>
+                          <td>{{r.balance}}</td>
+                </tr>
+                  {% endfor %} 
+             </table>
+        </div>  
+    </div>
+</body>
+</html>

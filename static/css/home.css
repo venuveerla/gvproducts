@@ -1,0 +1,127 @@
+
+*{
+    margin: 0;
+  }
+  
+  .parent
+  {
+    padding-top: 2em;
+    margin: 0;
+    height: 100vh;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* background-size:cover;   */
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    opacity:1.5;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+  
+   
+   nav{
+    display: flex;
+    gap: 2.3rem; 
+    margin-left: 3em;
+    margin-right: 3em;
+    padding:1em;
+    box-shadow: 0px 0px 8px rgb(86, 84, 84);
+    align-items: center;
+    height:2em;
+    
+    color:rgb(3, 55, 3);
+    color: rgb(27, 26, 26);
+    align-items: center;
+   }
+   nav h2{
+    font-size: 1.5em;
+    font-weight: bold;
+   }
+   nav h2:hover{
+    cursor: pointer;
+    color:#FFECCF;
+    text-decoration: overline orange 3px;
+   }
+   .title
+   {
+    /* text-align: center; */
+    color:rgb(31, 31, 227);
+    font-family: Georgia;
+    font-size: 50px;
+    margin-left: 2em;
+    margin-bottom: 3em;
+   }
+  .box
+  { 
+    background-color:rgba(255,255,255,0.12);
+    box-shadow:0 5px 15px rgba(0,0,0,0);
+    /* background-color: rgb(68, 65, 65); */
+    /* opacity: 0.6;
+     */
+  
+     
+    height:230px;
+    width:450px;
+    color:white;
+    font-weight:bold;
+    font-size: large;
+  }
+  .flex{
+    display: flex;
+    gap: 0.4em;
+  }
+  .info
+  {
+    text-align: center;
+    margin-top:1rem;
+    font-size: 1.8rem;
+  }
+ 
+  .para
+  { 
+    display:block;
+    padding-left: 1em;
+    padding-right:1em;
+    text-align:center;
+    margin-top:1em;
+    font-size:large;
+    color:white;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight:None;
+    padding-bottom: 2em;
+  }
+  
+nav .menu:hover .submenu
+{
+  position: absolute;
+    display: block;
+    text-align: center;
+    /* background-color: #FFFFFF; */
+    color: #303;
+    
+}
+
+.submenu{
+  list-style: none;
+  display: none;
+  padding: 0;
+  color: black;
+}
+.submenu li:hover {
+  color: orange;
+}
+.button
+{ 
+   position: absolute;
+   bottom: 2em;
+   display: block;
+   padding:0.2em 2em;
+   /* background-color: #00a400; */
+   color: #FFFFFF;background-color: green;
+   margin-left: 6.4em;
+   /* color:white; */
+   font-weight:bolder ;
+   border:none;
+   font-size: large;
+   border-radius: 8px;
+}

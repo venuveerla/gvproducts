@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/balancepayment.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      a{
+         text-decoration: none;
+         color:#303;
+      }
+      .submenu a{
+        color:black;
+      }
+    </style>
+</head>
+<body>
+    <div class="maintitle" style= border-style:ridge;>
+        <div class="logo">
+          <img src="{% static 'media/logo.png' %}" alt="logo" style="width:180px; float:left; height:140px;">
+      </div>
+        <P class="maintitle">G.V PRODUCTS</P>
+      <div class="info">
+        <p style="margin-left:4px;"><i class="fa fa-fw fa-envelope"></i>kumar@gmail.com</p>
+        <p style="margin-left: 20px;"><i class="bi bi-telephone-inbound"> </i>contact1 :9879871234</p>
+        <p style="margin-left: 20px;"><i class="bi bi-telephone-inbound"> </i>contact2 :9879871235</p>
+     </div>
+     </div>
+     <nav style="color: #FFFFFF;border-width:0px;">
+      <h2><a href="{% url 'home' %}"><i class="fa fa-fw fa-home"></i>Home</a></h2>
+      <h2><a href="{% url 'registeration' %}"><i class="bi bi-person-plus-fill"> </i>Register</a></h2>
+      <h2><a href="{% url 'product' %}"><i class="bi bi-cart-plus"> </i>Purchase</a></h2>
+      <h2 class="menu" style="color:#303">Product <i class="fa fa-caret-down" style="font-size:20px;"> </i>
+        <ul class="submenu">
+          <li style="padding:2px 2px 2px 2px;"><a href="{% url 'toadd' %}">Add product</a></li>
+          <li style="padding:2px 2px 2px 2px;"><a href="{% url 'update' %}">Update product</a></li>
+        </ul> 
+      </h2>
+    </nav>
+      <div class="container">
+          <form action="{% url 'updatebalance' %}" method="post" id="form">
+            {% csrf_token %}
+          <div class="title">
+                <p style="margin-top: 50px; margin-bottom: 0px; font-family: Roboto,sans-serif;"><u>BALANCE PAYMENT</u></p>
+          </div>
+          <div class="balance_details" style="margin-top:25px;">
+            <form>
+              <div>
+              {% for s in messages %} 
+              {% if s.tags == "error" %}
+              <p style="font-size: smaller;color:red">{{s}}</p>
+         {% else %}
+              <p style="font-size: 15px;color:green">{{s}}</p>
+         {% endif %}
+              {% endfor %}
+              </div>
+              <span id="message"></span>
+              <div class="input_details">
+                <span>enter mobileno:</span>
+                <input type="tel" name="phno" id="phno" value="{{result.phno}}" required>
+              </div>
+              <div class="input_details">
+                <span>name:</span>
+                <input type="text" id="name" name="name"  value="{{result.name}}" readonly>
+              </div>
+              <div class="input_details">
+                <span>father/husband name:</span>
+                <input type="text" id="fathername" name="father" value="{{result.father}}" readonly>
+              </div>
+              <div class="input_details">
+                <span>balance amount:</span>
+                <input type="text" id="balance"  name="balance" value="{{result.balance}}" readonly>
+              </div>
+              <div class="input_details">
+                <span>amount will to pay:</span>
+                <input type="number"  id='amount will to pay ' name="amount" value="{{result.amount}}" required>
+              </div>
+              <button class="submit">PAY NOW</button>
+          </div>
+        </form>
+      </div>
+      <script>
+         $('#phno').on('change', function() {
+          phno=document.getElementById('phno');
+          message=document.getElementById('message');
+          if(phno.value.length!=10)
+          {
+            message.textContent="please enter a valid mobileno";
+            message.style.color='red';
+          }
+          else
+          {
+            message.textContent=" ";
+            var phone_number=$('#phno').val();
+            $.ajax({
+            url: '/getdetails/',
+            data: {
+                'phone_number': phone_number
+            },
+            dataType: 'json',
+            success: function(data) {
+                if(data.message=='error')
+                {
+                  message.textContent="phno doesn't exist";
+                  message.style.color='red';
+                  $('#name').val("");
+                  $('#fathername').val("");
+                  $('#balance').val("");
+                }
+                else
+                {
+                  $('#name').val(data.name);
+                  $('#fathername').val(data.fathername);
+                  $('#balance').val(data.balance);
+                }
+            }
+        });
+          }
+         });
+      </script>
+    </body>
+</html>

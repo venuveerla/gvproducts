@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/purchasing.css' %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      a{
+         text-decoration: none;
+         color:#303;
+      }
+      .submenu a{
+        color:black;
+      }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="maintitle">
+        <div class="logo">
+            <img src="{% static 'media/logo.png' %} " alt="logo" style="width:180px; float:left; height:140px;">
+        </div>
+        <P class="maintitle">G.V PRODUCTS</P>
+      <div class="info">
+        <p style="margin-left:4px;"><i class="fa fa-fw fa-envelope"></i>kumar@gmail.com</p>
+        <p style="margin-left: 20px;"><i class="bi bi-telephone-inbound"> </i>contact1 :9879871234</p>
+        <p style="margin-left: 20px;"><i class="bi bi-telephone-inbound"> </i>contact2 :9879871235</p>
+     </div>
+     </div>
+     <div >
+      <nav style="color: #FFFFFF;border-width:0px;">
+        <h2><a href="{% url 'home' %}"><i class="fa fa-fw fa-home"></i>Home</a></h2>
+      <h2><a href="{% url 'registeration' %}"><i class="bi bi-person-plus-fill"> </i>Register</a></h2>
+      <h2><a href="{% url 'product' %}"><i class="bi bi-cart-plus"> </i>Purchase</a></h2>
+      <h2 class="menu" style="color:#303">Product <i class="fa fa-caret-down" style="font-size:20px;"> </i>
+          <ul class="submenu">
+            <li style="padding:2px 2px 2px 2px;"><a href="{% url 'toadd' %}">Add product</a></li>
+            <li style="padding:2px 2px 2px 2px;"><a href="{% url 'update' %}">Update product</a></li>
+          </ul> 
+        </h2>
+      </nav>
+     <div class="container" >
+      
+        <form action="{% url 'purchase' %}" method="post">
+         {% csrf_token %}
+        <div class="title">
+              <p>product purchase</p>
+              <div class="message">
+                {% for msg in messages %}
+                {% if msg.tags == "error" %}
+                     <p style="font-size: 15px; color:red">{{msg}}</p>
+                {% else %}
+                     <p style="font-size: 15px;color:green">{{msg}}</p>
+                {% endif %}
+                {% endfor %}
+              </div>
+        </div>
+        <div class="details">
+          <p id="message" style="text-align: center;"></p>
+           <div class="input_details">
+            <span class="textabove">name:</span>
+            <input type="text" name="name" value="{{d.name}}" required>
+           </div>
+           <div class="input_details">
+            <span class="textabove" >mobileno</span>
+            <input type="number" name="phno" id="phno" value="{{d.phno}}">
+           </div>
+           <div class="input_details">
+            <span class="textabove">select product:</span>
+            <input  list="val" name="product" value="{{d.product}}" required>
+           <datalist id="val" >
+            {% for r in result %}
+            <option value="{{r.name}}">{{r.name}}</option>
+            {% endfor %}
+            </datalist>
+           </div>
+           <div class="input_details">
+            <span class="textabove" >no of quantities:</span>
+            <input type="number"  id="quantity" name="quantity" value="{{d.quantity}}">
+           </div>
+           <div class="button" >
+             <button class="submit" style="color:rgb(226, 83, 43)">ADD TO CART</button>
+     </form>
+             <button class="submit" style="color:green"><a href="/billpayment/" style="text-decoration: none;color;color:green;">GENERATE BILL</a></button>
+        </div>
+      </div>
+    </div>
+  </div>
+    <script>
+       message=document.getElementById('message');
+    $('#phno').on('change', function()
+    {
+      phno=document.getElementById('phno');
+        
+          if(phno.value.length!=10)
+          {
+            message.textContent="**please enter a valid mobileno**";
+            phno.style.border='1.5px red solid';
+            message.style.color='red';
+          }
+          else
+          {
+            message.textContent="";
+            phno.style.border='';
+          }
+    });
+    $('#quantity').on('change', function()
+    {
+      quantity=document.getElementById('quantity');
+        
+          if(quantity.value<=0)
+          {
+            message.textContent="**quantity should be above 0 **";
+            quantity.style.border='1.5px red solid';
+            message.style.color='red';
+          }
+          else
+          {
+            message.textContent="";
+            quantity.style.border='';
+          }
+    });
+    </script>
+</body>
+</html>

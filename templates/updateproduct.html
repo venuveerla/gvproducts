@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/toadd.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      a{
+         text-decoration: none;
+         color:#303;
+      }
+      .submenu a{
+        color:black;
+      }
+    </style>
+</head>
+<body>
+    <div class="maintitle">
+        <div class="logo">
+          <img src="{% static 'media/logo.png' %}" alt="logo" style="width:180px; float:left; height:140px;">
+      </div>
+        <p class="maintitle">G.V PRODUCTS</p>
+      <div class="info">
+        <p style="margin-left:4px;"><i class="fa fa-fw fa-envelope"></i>kumar@gmail.com</p>
+        <p style="margin-left: 20px;"><i class="bi bi-telephone-inbound"> </i>contact1 :9879871234</p>
+        <p style="margin-left: 20px;"><i class="bi bi-telephone-inbound"> </i>contact2 :9879871235</p>
+     </div>
+     </div>
+     <nav style="color: #FFFFFF;border-width:0px;">
+      <h2><a href="{% url 'home' %}"><i class="fa fa-fw fa-home"></i>Home</a></h2>
+      <h2><a href="{% url 'registeration' %}"><i class="bi bi-person-plus-fill"> </i>Register</a></h2>
+      <h2><a href="{% url 'product' %}"><i class="bi bi-cart-plus"> </i>Purchase</a></h2>
+      <h2 class="menu" style="color:#303">Product <i class="fa fa-caret-down" style="font-size:20px;"> </i>
+        <ul class="submenu">
+          <li style="padding:2px 2px 2px 2px;"><a href="{% url 'toadd' %}">Add product</a></li>
+          <li style="padding:2px 2px 2px 2px;"><a href="{% url 'update' %}">Update product</a></li>
+        </ul> 
+      </h2>
+    </nav>
+     <div class="container">
+      <form action="{% url 'updateaproduct' %}" method="post">
+        {% csrf_token %}
+            <div class="title">
+                <p>UPDATE PRODUCT DETAILS</p>
+            </div>
+            <div class="message">
+              {% for msg in messages %}
+              {% if msg.tags == "error" %}
+                   <p style="font-size: medium;color:red;text-align: center; font-size: 17px;">{{msg}}</p>
+              {% else %}
+                   <p style="font-size: medium;color:green;text-align: center; font-size: 17px;">{{msg}}</p>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <div class="details">
+              <p id="message" style="text-align: center;font-size: medium;"></p>
+                <div class="input_details">
+                    <span class="textabove">select product to update:</span>
+                    <input  list="val" name="old" value="{{d.old}}"  required>
+                    <datalist id="val"  >
+                      {% for r in result %}
+                         <option value="{{r.name}}">{{r.name}}</option>
+                      {% endfor %}
+                     </datalist>
+                   </div>
+              <div class="input_details">
+                <span class="textabove">new product name:</span>
+                <input type="text" name="newname" value="{{d.newname}}">
+               </div>
+               <div class="input_details">
+                <span class="textabove">product type:</span>
+                <input type="text" name="ptype" value="{{d.ptype}}">
+               </div>
+               <div class="input_details">
+                <span class="textabove">new price per quantity:</span>
+                <input type="number" name="price"  id="price" value="{{d.price}}">
+               </div>
+               <div style="text-align: center;">
+               <button>submit</button>
+              </div>
+            </div>
+        </form>
+     </div>
+     <script>
+      message=document.getElementById('message');
+      $('#price').on('change', function()
+    {
+      price=document.getElementById("price");
+      console.log(price.value);
+          if(price.value<0)
+          {
+            message.textContent="**quantity should be above 0 **";
+            price.style.border='1.5px red solid';
+            message.style.color='red';
+          }
+          else
+          {
+            message.textContent="";
+            price.style.border='';
+          }
+    });
+     </script>
+</body>
+</html>

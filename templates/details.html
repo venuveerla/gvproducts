@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/details.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <style>
+      a{
+         text-decoration: none;
+         color:#303;
+      }
+      .submenu a{
+        color:black;
+      }
+    </style>
+</head>
+<body>
+    <div class="maintitle">
+      <div class="logo">
+        <img src="{% static 'media/logo.png' %}" alt="logo" style="width:180px; float:left; height:140px;">
+    </div>
+      <P class="maintitle">G.V PRODUCTS</P>
+    <div class="info">
+    <p style="margin-left:4px;"><i class="fa fa-fw fa-envelope"></i>kumar@gmail.com</p>
+    <p style="margin-left: 20px;"><i class="bi bi-telephone-inbound"> </i>contact1 :9879871234</p>
+    <p style="margin-left: 20px;"><i class="bi bi-telephone-inbound"> </i>contact2 :9879871235</p>
+   </div>
+   </div>
+   <nav style="color: #FFFFFF;border-width:0px;">
+    <h2><a href="{% url 'home' %}"><i class="fa fa-fw fa-home"></i>Home</a></h2>
+    <h2><a href="{% url 'registeration' %}"><i class="bi bi-person-plus-fill"> </i>Register</a></h2>
+    <h2><a href="{% url 'product' %}"><i class="bi bi-cart-plus"> </i>Purchase</a></h2>
+    <h2 class="menu" style="color:#303">Product <i class="fa fa-caret-down" style="font-size:20px;"> </i>
+      <ul class="submenu" >
+        <li style="padding:2px 2px 2px 2px;"><a href="{% url 'toadd' %}">Add product</a></li>
+        <li style="padding:2px 2px 2px 2px;"><a href="{% url 'update' %}">Update product</a></li>
+      </ul> 
+    </h2>
+  </nav>
+    <div class="container">
+        <form action="{% url 'register' %}" method="post">
+         {% csrf_token %}
+        <div  class="title">
+              <p style="color:#fff;background-color: darkslateblue;padding:6px 6px 6px 6px; margin-left: 7vw;margin-right: 7vw;">REGISTRATION</p>
+              <div class="message">
+                {% for msg in messages %}
+                {% if msg.tags == "error" %}
+                     <p style="font-size:15px;color:red">{{msg}}</p>
+                {% else %}
+                     <p style="font-size: 15px;color:green">{{msg}}</p>
+                {% endif %}
+                {% endfor %}
+              </div>
+              <p id="message" style="font-size: 15px; color:red"></p>
+        </div>
+        <div class="details">
+           <div class="input_details">
+            <span class="textabove">Name:<p style="color:red;display:initial;">*</p></span>
+            <input type="text" name="name" value="{{d.name}}" required>
+           </div>
+           <div class="input_details">
+            <span class="textabove">Gender:<p style="color:red;display:initial;">*</p></span>
+            <input  list="val" name="gender" value="{{d.gender}}" required>
+           <datalist id="val" >
+            <option value="Male" >Male</option>
+            <option value="Female" >Female</option>
+            <option value="Others">Others</option>
+            </datalist>
+           </div>
+           <div class="input_details">
+            <span class="textabove" >Father/hushband name:</span>
+            <input type="text"name="father"  value="{{d.father}}">
+           </div>
+           <div class="input_details">
+            <span class="textabove" >village:</span>
+            <input type="text" name="village" value="{{d.village}}">
+           </div>
+           <div class="input_details">
+            <span class="textabove" >mandal:</span>
+            <input type="text" name="mandal" value="{{d.mandal}}">
+           </div>
+           <div class="input_details">
+            <span class="textabove">district:</span>
+            <input type="text"  name="district" value="{{d.district}}" >
+           </div>
+           <div class="input_details">
+            <span class="textabove">phno 1:<p style="color:red;display:initial;">*</p></span>
+            <input type="number"  id='phno1' name="phno1" value="{{d.phno1}}" required>
+           </div>
+           <div class="input_details">
+            <span class="textabove" >phno 2:</span>
+            <input type="number" name="phno2" id="phno2" value="{{d.phno2}}" >
+           </div>
+           <div class="submit" >
+            <button style="text-align: center;" id="register">REGISTER</button>
+          </div>
+           </div>
+        </div>
+    </form>
+    </div>
+    <script>
+      message=document.getElementById('message');
+    $('#phno1').on('change', function()
+    {
+      phno=document.getElementById('phno1');
+        
+          if(phno.value.length!=10)
+          {
+            message.textContent="**please enter a valid mobileno**";
+            phno.style.border='1.5px red solid';
+            message.style.color='red';
+          }
+          else
+          {
+            message.textContent="";
+            phno.style.border='';
+          }
+    });
+    $('#phno2').on('change', function()
+    {
+      phno=document.getElementById('phno2');
+          
+          if(phno.value.length!=10 && phno.value.length!=0)
+          {
+            message.textContent="**please enter a valid mobileno**";
+            phno.style.border=' 1.5px red solid';
+          }
+          else
+          {
+            message.textContent="";
+            phno.style.border='';
+          }
+    });
+   
+   </script>
+</body>
+</html>

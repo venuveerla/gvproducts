@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/billpayment.css' %}">
+    <meta name="csrf-token" content="{% csrf_token %}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>bill generation system for gv products</title>
+</head>
+<body>
+   
+    <div class="container" >    
+        <form action="{% url 'updatebalanceafterbill' %}" method="post" id="form">
+            {% csrf_token %}
+        <div class="top" style="height:160px ">
+            <div class="title">
+              <p><u>G.V PRODUCTS</u></p>
+             </div>
+            <div>
+             <div class="name">
+                <p>NAME:</p>
+                <p style=" text-align:left; width:180px; margin-left:7px;" name="name">{{d.name}}</p>
+            </div>
+            <div class="name" style="margin-left: 30px;">
+                <p>village:</p>
+                <p style=" text-align:left; width:180px; margin-left:6px;" name="village" >{{d.village}}</p>
+            </div>
+         </div>
+            <div class="date">
+                <p>date:</p>
+                <p name="date">{{d.date}}</p>
+            </div>
+            <div class="name" style="margin-top: 2px; margin-bottom: 2px;">
+                <p style="margin-top: 2px;">mobileno:</p>
+                <input type="tel" value="{{d.phno}}" name="phno" id="phno" style='border-width: 0px; font: 15px; height:20px; width:80px' readonly>
+            </div>
+        </div>
+        <div class="table" style="margin: 0px;">
+            <table>
+                <tr>
+                    <th>s.no</th>
+                    <th width="50%">product name</th>
+                    <th>quantity</th>
+                    <th>price</th>
+                </tr>
+                {% for i,s in d1.items %}
+                <tr>
+                    <td>{{s.0}}</td>
+                    <td width="50%">{{s.1}}</td>
+                    <td>{{s.2}}</td>
+                    <td>{{s.3}}</td>   
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        
+        <div class="place"> 
+        <table style="width:680px">
+           
+            <tr>
+                <th style="width:80%">total amount to be paid</th>
+                <th>
+                    <input type="text" style='border-width: 0px;'  value ="{{d.totalbillprice}}" name='totalamount' id="totalamount" readonly>
+                </th>
+            </tr>
+            <tr>
+                <th style="width:80%" id="spantext">total amount will to be paid</th>
+                <th>
+                    <span style="color:red;font-size: 10px;" id="in"></span>
+                    <input type="text" style='border-width: 0px;' name='amount' id="amount" required>
+                </th>
+            </tr>
+            <tr>
+                <th style="width:80%" id="spantext">balance need to pay for this bill</th>
+                <th><input type="text" style='border-width: 0px;'id="balance" name="balance" readonly></th>
+            </tr>
+        </table>
+        <div class="submit">
+             <button type="submit" style="color: green; width:150px; height:30px; background-color: aliceblue; border-radius: 5px;" id="btn">SUBMIT</button>
+        </div>
+      </div>
+    </div>
+</form>
+    </div>
+     <script>
+        form=document.getElementById('form');
+        form.addEventListener('submit',function(event){
+            let v=document.getElementById('spantext');
+          let totalbill=document.getElementById('totalamount');
+          let v1=document.getElementById('amount');
+          let v2=document.getElementById('balance');
+         if(parseInt(v1.value)>totalbill.value )
+          {
+            event.preventDefault();
+            let i=document.getElementById('in');
+            i.textContent="amount should not be greater than total amount";
+          }
+          else
+          {
+            let i=document.getElementById('in');
+            i.textContent=" ";
+            v.textContent="amount you have paid ";
+            v2.value=parseInt(totalbill.value)-parseInt(v1.value);
+           var tdElement = document.getElementById('btn');
+            var trElement = tdElement.parentNode;
+           trElement.removeChild(tdElement);
+        window.print();
+          }   
+        }
+        );
+    </script> 
+</body>
+</html>
