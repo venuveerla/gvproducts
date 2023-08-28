@@ -1,0 +1,103 @@
+body
+{
+ max-width: 100vw;
+ max-height: 135vh;
+ display:flex;
+    flex-wrap: wrap;
+   text-align: center;
+   justify-content: center;
+ border-radius: 9px;
+ border-width: 10px;
+ text-align: center;
+}
+.container
+{ 
+    font-style: oblique;
+   width:700px;
+   height:800px;
+   border-style:outset;
+   position:relative; 
+   margin-bottom: 0px;
+    border-width: 3px; 
+    border-color: #46b946;
+   background-color: white;
+   
+}
+.container .top
+{
+    border-style:ridge; 
+    border-width: 3px; 
+    border-color: #46b946;
+    height:140px;
+}
+.top .name
+{
+    float:left;
+    font-family: Georgia;
+    font-style: oblique;
+    font-size: medium;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;  
+}
+.top .date
+{
+    float:right;
+    font-weight: bolder;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-right: 15px;
+}
+.container .top .title
+{
+  font-size: x-large;
+  font-family: Arial;
+  font-weight: 300px;
+  color:green;
+}
+table
+{
+    width:100%;
+   border-collapse: collapse;
+   font-family: Georgia;
+   margin-top: 0px;
+}
+td,th{
+    border: 1px solid;
+    text-align: left;
+    padding: 8px;
+}
+.container .input
+{
+    text-align: left;
+    margin-top: 25px;
+    height: 25px;
+    padding-left: 4px;
+    font-style: italic;
+    font-weight: bolder;
+}
+.place input{
+    padding:4px 3px 2px 8px; 
+    float:right;
+    border-style: ridge;
+    margin-right: 15px;
+}
+
+.submit
+{
+   
+   margin-top: 20px;
+   text-align: end;
+   color:green;
+   font-weight: bold;
+   font-family: 'Lucida Sans';
+   margin-right: 25px;
+   padding:10px 20px 30px 40px;
+   height: 30px;
+}
+.place
+{
+  position:absolute;
+  bottom:0px;
+}
