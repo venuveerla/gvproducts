@@ -1,1 +1,3 @@
-# gvproducts
+GV Products- a digital accounting ledger for fertilizer shops.
+
+GV Products is a web application acts as a digital ledger to store,retriew and update the details related to payments of the products by the farmers  at the fertilizers shop.As the usage of fertilizers and pesticides was increasing day by day to get a better yield from the crop by the Farmers. As a result, farmers are tries to visit the fertilizer shop frequently and theshop assistant has to note their personal and product details they bought, balance and bill after payment etc., in a book called ledger . It takes more time to note the details as the no of farmers are visting to shop was increasing. To minimize this we developed a web application called G.V.Products to resolve these issues 
